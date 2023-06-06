@@ -180,6 +180,16 @@ async function startAdrian() {
                 } catch {
                     ppgroup = 'https://tinyurl.com/yx93l6da'
                 }
+
+               if (anu.action == 'add') {
+                    conn.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `Welcome @${num.split("@")[0]} To Group ${metadata.subject} 👋` })
+                } else if (anu.action == 'remove') {
+                    conn.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `Sayonaraa @${num.split("@")[0]} 👋` })
+                } else if (anu.action == 'promote') {
+                    conn.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `Selamat Ya @${num.split("@")[0]} Atas Kenaikan Jabatannya Di Grup ${metadata.subject} 🎉` })
+                } else if (anu.action == 'demote') {
+                    conn.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `Nice Try @${num.split("@")[0]} Atas Penurunan Jabatannya Di Grup ${metadata.subject} 😔` })
+              }
             }
         } catch (err) {
             console.log("Eror Di Bagian Welcome Group "+err)
