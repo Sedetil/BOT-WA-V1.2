@@ -178,7 +178,7 @@ async function startAdrian() {
                 try {
                     ppgroup = await conn.profilePictureUrl(anu.id, 'image')
                 } catch {
-                    ppgroup = 'https://telegra.ph/file/755f1ff0722963d66be6e.jpg'
+                    ppgroup = 'https://tinyurl.com/yx93l6da'
                 }
             }
         } catch (err) {
