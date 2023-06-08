@@ -182,7 +182,8 @@ async function startAdrian() {
                 }
 
                if (anu.action == 'add') {
-                    conn.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `Welcome @${num.split("@")[0]} To Group ${metadata.subject} 👋` })
+	        } else if  
+		    conn.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `Welcome @${num.split("@")[0]} To Group ${metadata.subject} 👋` })
                 } else if (anu.action == 'remove') {
                     conn.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `Sayonaraa @${num.split("@")[0]} 👋` })
                 } else if (anu.action == 'promote') {
