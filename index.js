@@ -182,8 +182,9 @@ async function startAdrian() {
                 }
 
                if (anu.action == 'add') {
-                    else if (anu.action == 'remove') {
-                    conn.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `Sayonaraa @${num.split("@")[0]} I hope don't come back again 👋` })
+                    conn.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `Welcome @${num.split("@")[0]} To Group ${metadata.subject} 👋` })
+                } else if (anu.action == 'remove') {
+                    conn.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `Sayonaraa @${num.split("@")[0]} 👋` })
                 } else if (anu.action == 'promote') {
                     conn.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `Selamat Ya @${num.split("@")[0]} Atas Kenaikan Jabatannya Di Grup ${metadata.subject} 🎉` })
                 } else if (anu.action == 'demote') {
