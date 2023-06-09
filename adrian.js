@@ -2738,67 +2738,28 @@ caption += _0x582aa0(0x116) + data[_0x582aa0(0x10d)][_0x582aa0(0x119)] + '\x0a',
 			case 'sticker':
             case 'stiker':
             case 's':{
-                if (cekUser("id", sender) == null) return Notdaftar()
-
-try {
-
-if (isMedia || isQuotedImage) { 
-
-var stream = await downloadContentFromMessage(nay.message.imageMessage || nay.message.extendedTextMessage?.contextInfo.quotedMessage.imageMessage, 'image')
-
-var buffer = Buffer.from([])
-
-for await(const chunk of stream) {buffer = Buffer.concat([buffer, chunk])}
-
-fs.writeFileSync('./res_buffer.jpg', buffer)
-
-const image = './res_buffer.jpg'
-
-await ffmpeg(image)
-
-.input(image)
-
-.on('error', function (error) { only("error", rimurubotz, from) })
-
-.on('end', function () {adrian.sendMessage(from, { sticker: {url: './mysticker.webp'}, mimetype: 'image/webp' })})
-
-.addOutputOptions([`-vcodec`, `libwebp`, `-vf`, `scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
-
-.toFormat('webp')
-
-.save('./mysticker.webp')} else if (isMedia || isQuotedVideo) {only("proses", rimurubotz, from)
-
-var stream = await downloadContentFromMessage(nay.message.videoMessage || nay.message.extendedTextMessage?.contextInfo.quotedMessage.videoMessage, 'video')
-
-var buffer = Buffer.from([])
-
-for await(const chunk of stream) {buffer = Buffer.concat([buffer, chunk])}
-
-fs.writeFileSync('./res_buffer.mp4', buffer)
-
-const video = './res_buffer.mp4'
-
-await ffmpeg(video)
-
-.input(video)
-
-.on('error', function (error) {reply("error")
-
-console.log(`${error}`)})
-
-.on('end', function () { adrian.sendMessage(from, { sticker: {url: './mysticker2.webp' }, mimetype: 'image/webp' })})
-
-.addOutputOptions(["-vcodec", "libwebp", "-vf", "scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse"])
-
-.toFormat('webp')
-
-.save('./mysticker2.webp')} else {
-
-reply('_Kirim gambar/video dengan caption !sticker/ reply gambar/video dengan perintah !sticker_ ')
-
-}} catch (e) {only("error", adrian, from)}
-
-break
+                if (!quoted) return newReply(`Balas Video/Image Dengan Caption ${prefix + command}`)
+                newReply(mess.wait)
+                if (/image/.test(mime)) {
+                    let media = await quoted.download()
+                    let encmedia = await conn.sendImageAsSticker(m.chat, media, m, {
+                        packname: global.packname,
+                        author: global.author
+                    })
+                    await fs.unlinkSync(encmedia)
+                } else if (/video/.test(mime)) {
+                    if ((quoted.msg || quoted).seconds > 11) return newReply('Maksimal 10 detik!')
+                    let media = await quoted.download()
+                    let encmedia = await conn.sendVideoAsSticker(m.chat, media, m, {
+                        packname: global.packname,
+                        author: global.author
+                    })
+                    await fs.unlinkSync(encmedia)
+                } else {
+                    return newReply(`Kirim Gambar/Video Dengan Caption ${prefix + command}\nDurasi Video 1-9 Detik`)
+                }
+            }
+            break
             
             case 'smeme': {
 	        let respond = `Kirim/reply image/sticker dengan caption ${prefix + command} text1|text2`
@@ -3540,16 +3501,86 @@ newReply(mess[_0x169df1(0x1b7)]), get_args = args[_0x169df1(0x1c8)]('\x20')[_0x1
             
             case 'tohd':
             case 'remini': {
-                    if (!isPremium && global.db.data.users[m.sender].limit < 1) return newReply(mess.endLimit) // respon ketika limit habis
-                    db.data.users[m.sender].limit -= 5 // -1 limit
-                    if (!quoted) return newReply(`Kirim/Reply Image Dengan Caption ${prefix + command}`)
-                    if (!/image/.test(mime)) return newReply(`Kirim/Reply Image Dengan Caption ${prefix + command}`)
-                    if (/webp/.test(mime)) return newReply(`Kirim/Reply Image Dengan Caption ${prefix + command}`)
-                    newReply(mess.wait)
-                    const media = await conn.downloadAndSaveMediaMessage(quoted)
-                    const anu = await TelegraPh(media)
-                    let get_result = await getBuffer(`https://api.lolhuman.xyz/api/imagetoanime?apikey=${apikey}&img=${anu}`)
-                    conn.sendMessage(m.chat, { image: { url: get_result }, caption: (mess.done) }, { quoted: m})
+                    const _0x4039d2 = _0xc359;
+(function (_0x48ec84, _0x42b236) {
+    const _0xd6ebe1 = _0xc359, _0x30cbf2 = _0x48ec84();
+    while (!![]) {
+        try {
+            const _0x26770d = -parseInt(_0xd6ebe1(0x9b)) / (-0x1a96 + -0x2b * 0x70 + 0x2d67) + -parseInt(_0xd6ebe1(0x8b)) / (0x3fd + 0x31d + -0xe3 * 0x8) * (parseInt(_0xd6ebe1(0x9a)) / (0x12d * 0x8 + -0x1 * -0xac1 + 0xa13 * -0x2)) + parseInt(_0xd6ebe1(0x91)) / (-0x1f2d + 0xba0 + 0x1391) + parseInt(_0xd6ebe1(0xa2)) / (0x2497 + -0x1 * 0xd03 + 0xa3 * -0x25) + -parseInt(_0xd6ebe1(0xa4)) / (0x463 + -0x2340 + -0x1 * -0x1ee3) * (-parseInt(_0xd6ebe1(0x97)) / (0x3d * -0x17 + 0x24a6 + -0x1f24)) + parseInt(_0xd6ebe1(0x95)) / (-0x2 * 0xcc2 + 0x47f * 0x5 + -0x1 * -0x311) * (parseInt(_0xd6ebe1(0x86)) / (-0x13bc + 0x2 * 0x5a0 + 0x885)) + -parseInt(_0xd6ebe1(0x93)) / (-0x46 * 0x59 + 0x1 * -0x679 + -0x1 * -0x1ed9);
+            if (_0x26770d === _0x42b236)
+                break;
+            else
+                _0x30cbf2['push'](_0x30cbf2['shift']());
+        } catch (_0x327bdc) {
+            _0x30cbf2['push'](_0x30cbf2['shift']());
+        }
+    }
+}(_0x221a, -0xe7686 + 0xc44ee + 0xcc739));
+if (!isPremium && global['db'][_0x4039d2(0x9d)][_0x4039d2(0x9e)][m[_0x4039d2(0x9c)]][_0x4039d2(0x9f)] < -0x1a4c + 0x2241 * -0x1 + 0x3c8e)
+    return newReply(mess[_0x4039d2(0x96)]);
+function _0xc359(_0x107c43, _0x21823c) {
+    const _0x38354a = _0x221a();
+    return _0xc359 = function (_0x4a0765, _0xf975fe) {
+        _0x4a0765 = _0x4a0765 - (-0x142c + 0x8d1 + 0x98 * 0x14);
+        let _0x5e1d28 = _0x38354a[_0x4a0765];
+        return _0x5e1d28;
+    }, _0xc359(_0x107c43, _0x21823c);
+}
+db[_0x4039d2(0x9d)][_0x4039d2(0x9e)][m[_0x4039d2(0x9c)]][_0x4039d2(0x9f)] -= -0x4c4 * 0x7 + -0x1d * 0x10b + -0x8 * -0x7f4;
+if (!quoted)
+    return newReply(_0x4039d2(0x8c) + _0x4039d2(0x92) + _0x4039d2(0x87) + _0x4039d2(0x94) + (prefix + command));
+function _0x221a() {
+    const _0x17121e = [
+        'i.lolhuman',
+        'https://ap',
+        '636516oXzUTF',
+        'y\x20Image\x20De',
+        '1495410XTmMqn',
+        'on\x20',
+        '488KlwxYE',
+        'endLimit',
+        '63ANmNHN',
+        'test',
+        '&img=',
+        '88650XIUmRt',
+        '1180439qoCTQg',
+        'sender',
+        'data',
+        'users',
+        'limit',
+        'e?apikey=',
+        'dSaveMedia',
+        '3308435mvTxxU',
+        'wait',
+        '227382eqHZxf',
+        'magetoanim',
+        'chat',
+        '135864ezbpoO',
+        'ngan\x20Capti',
+        'downloadAn',
+        '.xyz/api/i',
+        'sendMessag',
+        '4nelVhi',
+        'Kirim/Repl',
+        'done',
+        'Message'
+    ];
+    _0x221a = function () {
+        return _0x17121e;
+    };
+    return _0x221a();
+}
+if (!/image/[_0x4039d2(0x98)](mime))
+    return newReply(_0x4039d2(0x8c) + _0x4039d2(0x92) + _0x4039d2(0x87) + _0x4039d2(0x94) + (prefix + command));
+if (/webp/[_0x4039d2(0x98)](mime))
+    return newReply(_0x4039d2(0x8c) + _0x4039d2(0x92) + _0x4039d2(0x87) + _0x4039d2(0x94) + (prefix + command));
+newReply(mess[_0x4039d2(0xa3)]);
+const media = await conn[_0x4039d2(0x88) + _0x4039d2(0xa1) + _0x4039d2(0x8e)](quoted), anu = await TelegraPh(media);
+let get_result = await getBuffer(_0x4039d2(0x90) + _0x4039d2(0x8f) + _0x4039d2(0x89) + _0x4039d2(0xa5) + _0x4039d2(0xa0) + apikey + _0x4039d2(0x99) + anu);
+conn[_0x4039d2(0x8a) + 'e'](m[_0x4039d2(0x85)], {
+    'image': { 'url': get_result },
+    'caption': mess[_0x4039d2(0x8d)]
+}, { 'quoted': m });
             }
             break
 			
