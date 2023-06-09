@@ -2738,28 +2738,67 @@ caption += _0x582aa0(0x116) + data[_0x582aa0(0x10d)][_0x582aa0(0x119)] + '\x0a',
 			case 'sticker':
             case 'stiker':
             case 's':{
-                if (!quoted) return newReply(`Balas Video/Image Dengan Caption ${prefix + command}`)
-                newReply(mess.wait)
-                if (/image/.test(mime)) {
-                    let media = await quoted.download()
-                    let encmedia = await conn.sendImageAsSticker(m.chat, media, m, {
-                        packname: global.packname,
-                        author: global.author
-                    })
-                    await fs.unlinkSync(encmedia)
-                } else if (/video/.test(mime)) {
-                    if ((quoted.msg || quoted).seconds > 11) return newReply('Maksimal 10 detik!')
-                    let media = await quoted.download()
-                    let encmedia = await conn.sendVideoAsSticker(m.chat, media, m, {
-                        packname: global.packname,
-                        author: global.author
-                    })
-                    await fs.unlinkSync(encmedia)
-                } else {
-                    return newReply(`Kirim Gambar/Video Dengan Caption ${prefix + command}\nDurasi Video 1-9 Detik`)
-                }
-            }
-            break
+                if (cekUser("id", sender) == null) return Notdaftar()
+
+try {
+
+if (isMedia || isQuotedImage) { 
+
+var stream = await downloadContentFromMessage(nay.message.imageMessage || nay.message.extendedTextMessage?.contextInfo.quotedMessage.imageMessage, 'image')
+
+var buffer = Buffer.from([])
+
+for await(const chunk of stream) {buffer = Buffer.concat([buffer, chunk])}
+
+fs.writeFileSync('./res_buffer.jpg', buffer)
+
+const image = './res_buffer.jpg'
+
+await ffmpeg(image)
+
+.input(image)
+
+.on('error', function (error) { only("error", rimurubotz, from) })
+
+.on('end', function () {adrian.sendMessage(from, { sticker: {url: './mysticker.webp'}, mimetype: 'image/webp' })})
+
+.addOutputOptions([`-vcodec`, `libwebp`, `-vf`, `scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
+
+.toFormat('webp')
+
+.save('./mysticker.webp')} else if (isMedia || isQuotedVideo) {only("proses", rimurubotz, from)
+
+var stream = await downloadContentFromMessage(nay.message.videoMessage || nay.message.extendedTextMessage?.contextInfo.quotedMessage.videoMessage, 'video')
+
+var buffer = Buffer.from([])
+
+for await(const chunk of stream) {buffer = Buffer.concat([buffer, chunk])}
+
+fs.writeFileSync('./res_buffer.mp4', buffer)
+
+const video = './res_buffer.mp4'
+
+await ffmpeg(video)
+
+.input(video)
+
+.on('error', function (error) {reply("error")
+
+console.log(`${error}`)})
+
+.on('end', function () { adrian.sendMessage(from, { sticker: {url: './mysticker2.webp' }, mimetype: 'image/webp' })})
+
+.addOutputOptions(["-vcodec", "libwebp", "-vf", "scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse"])
+
+.toFormat('webp')
+
+.save('./mysticker2.webp')} else {
+
+reply('_Kirim gambar/video dengan caption !sticker/ reply gambar/video dengan perintah !sticker_ ')
+
+}} catch (e) {only("error", adrian, from)}
+
+break
             
             case 'smeme': {
 	        let respond = `Kirim/reply image/sticker dengan caption ${prefix + command} text1|text2`
